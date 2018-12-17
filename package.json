@@ -1,0 +1,22 @@
+{
+  "name": "real-time-chat",
+  "version": "1.0.0",
+  "description": "Chat in node js + express+ web socket",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeiDev/-real-time-chat.git"
+  },
+  "author": "JeiDev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jeiDev/-real-time-chat/issues"
+  },
+  "homepage": "https://github.com/jeiDev/-real-time-chat#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
