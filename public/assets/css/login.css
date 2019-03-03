@@ -1,0 +1,147 @@
+*{margin: 0;padding: 0}
+body{
+    display: flex;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.background{
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+    filter: blur(2px)
+}
+
+.background>img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    left: 0;
+    top: 0;
+}
+
+.box-login{
+    background: rgba(0,0,0,.7);
+    height: 400px;
+    width: 1000px;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.box-login>.info{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.box-login>.info>.box{
+    flex: 1 1 0;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.box-login>.info>.box>div{
+    width: 70%;
+}
+
+.box-login>.info>.box>div h1{
+    font-size: 1.6em;
+    margin-bottom: 10px;
+}
+
+.box-login>.info>.box>div p {
+    font-size: .9em;
+    margin-bottom: 10px;
+    color: rgba(255,255,255,.7)
+}
+
+
+.box-login>.info>.box .btn{
+    padding: 10px;
+    border: 2px solid white;
+    border-radius: 5px;
+    max-width: 100px;
+    text-align: center;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: all ease .5s;
+}
+
+.box-login>.info>.box .btn:hover{
+    border: 2px solid black;
+    background: black;
+}
+
+.content{
+    background: white;
+    width: 500px;
+    height: 110%;
+    display: flex;
+    position: absolute;
+    transition: all ease .5s;
+}
+
+.content-left-minus{
+    left: 460px;
+}
+
+/*******************************
+ANIMATION
+*******************************/
+.animation-left-minus{
+    animation: .5s animationMinus forwards;
+}
+
+.animation-left-plus{
+    animation: .5s animationPlus forwards;
+}
+
+@keyframes animationMinus{
+    0%{
+        left: 460px;
+    }
+
+    50%{
+        left: 40px;
+    }
+
+    75%{
+        left: 50px;
+    }
+
+    100%{
+        left: 40px;
+    }
+}
+
+@keyframes animationPlus{
+    0%{
+        left: 40px;
+    }
+
+    50%{
+        left: 460px;
+    }
+
+    75%{
+        left: 450px;
+    }
+
+    100%{
+        left: 460px;
+    }
+}
