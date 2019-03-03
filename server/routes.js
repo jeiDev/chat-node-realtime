@@ -1,26 +1,27 @@
-function routes(){
-	let express = require('express'),
-		app = express(),
-		fs = require('fs'),
-		path = require("path");
+function routes() {
+	const express = require("express"),
+	      app = express(),
+		  http = require('http').Server(app),
+		  path = require("path"),
+		  io = require("socket.io")(http);
 
-	//app.use(express.static('public'));
-	app.get('*', function(req, res) {	
-		
-		let url = req.url == "/" ? "home" : req.url
-			url = url.substring(1, url.lenght)
-			url = url.replace('/', '-')
+	app.use(express.static('public'))
+	app.get('/', function (req, res) {
+		let url = `${__dirname}/../public/pages/index.html`
+		res.sendFile(path.join(url));
+	});
 
-		if (fs.existsSync(path.join(__dirname+'/../public/pages/'+url+'.html'))) {
-			res.sendFile(`/pages/${url}.html`, { root: path.join(__dirname, '../public') });
-		}else{
-			res.sendFile('/pages/error404.html', { root: path.join(__dirname, '../public') });
-		}
+	app.get('/login', function (req, res) {
+		let url = `${__dirname}/../public/pages/login.html`
+		res.sendFile(path.join(url));
+	});
 
-	})
-
-	app.listen('8080', ()=>{
-		console.log("Server listen at port 8080")
+    io.on('connection', function(socket){
+        console.log("User connected")
+    })
+	
+	http.listen(80, function () {
+		console.log('listening on *:80');
 	});
 
 }

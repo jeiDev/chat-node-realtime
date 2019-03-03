@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/jeiDev/-real-time-chat#readme",
   "dependencies": {
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "path": "^0.12.7",
+    "socket.io": "^2.2.0"
   }
 }
