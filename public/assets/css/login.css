@@ -93,10 +93,114 @@ body{
     display: flex;
     position: absolute;
     transition: all ease .5s;
+    left: 460px;
+    box-shadow: 0 0 8px 1px rgba(0,0,0,.2);
+    overflow: hidden;
 }
 
-.content-left-minus{
-    left: 460px;
+.content>.content-box{
+    position: relative;
+    width: 500px;
+    min-width: 500px;
+    height: 100%;
+    transition: all .2s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.content>.content-box>.form-group{
+    display: flex;
+    width: 80%;
+    height: 50px;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.content>.content-box>.form-group>h1{
+    color: hsla(214, 100%, 51%, 0.63);
+}
+
+.content>.content-box>.form-group>.box-input{
+    width: 100%;
+}
+
+.content>.content-box>.form-group>.box-input>.column{
+    display: flex;
+    width: 100%;
+}
+
+.content>.content-box>.form-group>.box-input>.column>input{
+    flex: 1 1 auto;
+    border: none;
+    font-size: .9em;
+    box-sizing: border-box;
+    padding: 0 5px;
+}
+
+.content>.content-box>.form-group>.box-input>.column>input:focus{
+    outline: 0px;
+}
+
+.content>.content-box>.form-group>.box-input>.column>img{
+    width: 25px;
+    height: 25px;
+    margin-left: 10px;
+}
+
+.content>.content-box>.form-group>.box-input>.column>.bar{
+    height: 2px;
+    width: 100%;
+    background: hsla(214, 100%, 51%, 0.63);
+    margin-top: 5px;
+}
+
+.form-group-title{
+    margin-bottom: 30px;
+}
+
+.content-btn{
+    font-size: .9em; 
+    display: flex;
+}
+
+.content-btn>.info{
+    flex: 1 1 auto;
+    color: rgba(0,0,0,.6);
+}
+
+.content-btn>.info>div{
+    cursor: pointer;
+}
+
+.content-btn>.info>div:hover{
+    text-decoration: underline;
+}
+
+.content-btn .submit{
+    cursor: pointer;
+    background: hsla(214, 100%, 51%, 0.63);
+    color: white;
+    width: 100px;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+    transition: all ease .5s;
+}
+
+.content-btn .submit:hover{
+    background: hsl(214, 100%, 51%);
+}
+
+.content-register{
+    left: -500px;
+}
+
+.content-login{
+    left: -500px;
 }
 
 /*******************************

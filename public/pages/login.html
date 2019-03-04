@@ -5,6 +5,7 @@
 	<meta charset="UTF-8">
 	<title>Document</title>
 </head>
+<!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous"> -->
 <link rel="stylesheet" href="../assets/css/login.css">
 
 <body>
@@ -17,8 +18,7 @@
 			<div class="box">
 				<div class="text">
 					<h1>Don't Have an account?</h1>
-					<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt numquam voluptatem a aliquid quos
-						perferendis.</p>
+					<p>If you have not registered yet what are you waiting for?</p>
 				</div>
 				<div class="btn-box">
 					<div class="btn" id="showSignUp">
@@ -29,8 +29,7 @@
 			<div class="box">
 				<div class="text">
 					<h1>Have an account?</h1>
-					<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt numquam voluptatem a aliquid quos
-							perferendis.</p>
+					<p>If you have an account, sign in!</p>
 				</div>
 				<div class="btn-box">
 					<div class="btn" id="showLogin">
@@ -39,13 +38,96 @@
 				</div>
 			</div>
 		</div>
-		<div class="content content-left-minus">
-			<div class="content-box content-login">
-				Login
-			</div>
+		<div class="content content-left-minus" id="contentMove">
+			<div class="content-box content-register" id="contentRegister">
+				<div class="form-group form-group-title">
+					<h1>REGISTER</h1>
+				</div>
 
-			<div class="content-box content-register">
-				Register
+				<div class="form-group">
+					<div class="box-input">
+						<div class="column">
+							<input type="text" placeholder="Full Name">
+							<img src="../assets/svg/user.svg" alt="">
+						</div>
+						<div class="column">
+							<div class="bar"></div>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<div class="box-input">
+						<div class="column">
+							<input type="text" placeholder="Email">
+							<img src="../assets/svg/email.svg" alt="">
+						</div>
+						<div class="column">
+							<div class="bar"></div>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<div class="box-input">
+						<div class="column">
+							<input type="text" placeholder="Password">
+							<img src="../assets/svg/lock.svg" alt="">
+						</div>
+						<div class="column">
+							<div class="bar"></div>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group content-btn">
+					<div class="info"></div>
+					<div>
+						<div class="submit">
+							REGISTER
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="content-box content-login" id="contentLogin">
+				<div class="form-group form-group-title">
+					<h1>LOGIN</h1>
+				</div>
+
+				<div class="form-group">
+					<div class="box-input">
+						<div class="column">
+							<input type="text" placeholder="Email">
+							<img src="../assets/svg/email.svg" alt="">
+						</div>
+						<div class="column">
+							<div class="bar"></div>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<div class="box-input">
+						<div class="column">
+							<input type="text" placeholder="Password">
+							<img src="../assets/svg/lock.svg" alt="">
+						</div>
+						<div class="column">
+							<div class="bar"></div>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group content-btn">
+					<div class="info">
+						<div>Did you forget your password?</div>
+					</div>
+					<div>
+						<div class="submit">
+							LOGIN
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
