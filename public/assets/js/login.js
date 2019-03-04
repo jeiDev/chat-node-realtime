@@ -1,5 +1,6 @@
 var alertActive = false,
-    emptyLogin = document.getElementById("emptyLogin");
+    emptyLogin = document.getElementById("emptyLogin"),
+    socket = io();
 
 document.body.onload = init
 
@@ -67,22 +68,29 @@ function init() {
 
         login(email, pass).then(res => {
             res.token = res.id
-            res.id = res.userId
             localStorage.session = JSON.stringify(res)
-            if (!alertActive) {
-                alertActive = true
-                successLogin.style.top = "0"
+            getDataUser(res.userId).then(r => {
+                r.token = res.id
+                localStorage.session = JSON.stringify(r)
+                socket.emit('dataUser', {email: r.email, name: r.realm, id: r.id});                console.log(res)
+                if (!alertActive) {
+                    alertActive = true
+                    successLogin.style.top = "0"
 
-                setTimeout(() => {
-                    successLogin.style.top = "-40px"
-                    alertActive = false
-                    onClick = false
-                }, 2000)
+                    setTimeout(() => {
+                        successLogin.style.top = "-40px"
+                        alertActive = false
+                        onClick = false
+                    }, 2000)
 
-                setTimeout(() => {
-                    location.href = "/"
-                }, 500)
-            }
+                    setTimeout(() => {
+                        //location.href = "/"
+                    }, 500)
+                }
+            }).catch(err => {
+
+            })
+
         }).catch(err => {
             if (err == "LOGIN_FAILED") {
                 if (!alertActive) {
@@ -222,4 +230,14 @@ function register(name, email, pass) {
         })
     })
 
+}
+
+function getDataUser(id) {
+    return new Promise(function (resolve, reject) {
+        provider({ type: "GET", url: `${api}Users/${id}` }).then(res => {
+            resolve(res)
+        }).catch(err => {
+            reject(err)
+        })
+    })
 }

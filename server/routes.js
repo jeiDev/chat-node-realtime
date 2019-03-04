@@ -17,15 +17,13 @@ function routes() {
 	});
 
 	io.on('connection', function (socket) {
-		console.log("User connected", socket)
-
 		socket.on('message', function (msg) {
 			io.emit('message', msg);
 		});
 
-		socket.on('name', function (name) {
-			io.emit('name', name);
-			console.log('name: ' + nam);
+		socket.on('dataUser', function (dataUser) {
+			//io.emit('name', name);
+			console.log('dataUser: ', dataUser);
 		});
 
 		//socket.broadcast.emit('hi');

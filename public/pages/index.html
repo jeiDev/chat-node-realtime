@@ -14,23 +14,7 @@
     <div id="show"></div>
     <textarea id="message">Text example</textarea>
     <input type="button" value="send" id="send">
-    <script>
-        var socket = io()
-        document.getElementById("send").addEventListener("click", (e) => {
-            e.preventDefault()
-            let message = document.getElementById("message")
-            socket.emit('message', message.value);
-            message.value = ""
-            return false;
-        })
-
-        socket.on('message', function (msg) {
-            console.log("que pasa?")
-            let li = document.createElement("li")
-            li.innerText = msg
-            document.getElementById("show").appendChild(li);
-        });
-    </script>
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/home.js"></script>
 </body>
-
 </html>

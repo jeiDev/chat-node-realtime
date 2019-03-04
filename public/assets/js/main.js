@@ -8,7 +8,7 @@ function provider(data) {
     return new Promise(function (resolve, reject) {
         let xhr = new XMLHttpRequest()
         
-        xhr.open(data.type, data.url)
+        xhr.open(data.type, `${data.url}?${localStorage.session ? "access_token="+JSON.parse(localStorage.session).token : ""}`)
         xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8")
         xhr.onload = () => {
             if (xhr.status == 200) resolve(JSON.parse(xhr.responseText))
