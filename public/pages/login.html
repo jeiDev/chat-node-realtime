@@ -38,6 +38,29 @@
 				</div>
 			</div>
 		</div>
+		<div class="content-alert">
+			<div class="alert-box alert-login">
+				<div class="alert error" id="emptyLogin">
+					<div class="img">
+						<img src="../assets/img/alert/danger.jpg" alt="">
+					</div>
+					<div class="txt">
+						The fields can not be empty.
+					</div>
+					<div class="bar"></div>
+				</div>
+				<div class="alert error" id="incorrectCredentials">
+					<div class="img">
+						<img src="../assets/img/alert/danger.jpg" alt="">
+					</div>
+					<div class="txt">
+							The email or password is incorrect.
+					</div>
+					<div class="bar"></div>
+				</div>
+			</div>
+			<div class="alert-box alert-register"></div>
+		</div>
 		<div class="content content-left-minus" id="contentMove">
 			<div class="content-box content-register" id="contentRegister">
 				<div class="form-group form-group-title">
@@ -97,11 +120,11 @@
 				<div class="form-group">
 					<div class="box-input">
 						<div class="column">
-							<input type="text" placeholder="Email">
+							<input type="text" placeholder="Email" id="emailLogin">
 							<img src="../assets/svg/email.svg" alt="">
 						</div>
 						<div class="column">
-							<div class="bar"></div>
+							<div class="bar" id="barEmailLogin"></div>
 						</div>
 					</div>
 				</div>
@@ -109,11 +132,11 @@
 				<div class="form-group">
 					<div class="box-input">
 						<div class="column">
-							<input type="text" placeholder="Password">
+							<input type="text" placeholder="Password" id="passLogin">
 							<img src="../assets/svg/lock.svg" alt="">
 						</div>
 						<div class="column">
-							<div class="bar"></div>
+							<div class="bar" id="barPassLogin"></div>
 						</div>
 					</div>
 				</div>
@@ -123,7 +146,7 @@
 						<div>Did you forget your password?</div>
 					</div>
 					<div>
-						<div class="submit">
+						<div class="submit" id="login">
 							LOGIN
 						</div>
 					</div>
@@ -131,6 +154,7 @@
 			</div>
 		</div>
 	</div>
+	<script src="../assets/js/main.js"></script>
 	<script src="../assets/js/login.js"></script>
 </body>
 
