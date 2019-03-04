@@ -101,15 +101,10 @@ body{
     flex: 1 1 0;
     height: 100%;
     display: flex;
-    position: relative;
     align-items: center;
     min-width: 500px;
     max-width: 500px;
     flex-direction: column;
-}
-
-.alert-login{
-    flex-direction: flex-end;
     position: relative;
     overflow: hidden;
 }
@@ -151,6 +146,12 @@ body{
     background: red
 }
 
+.success>.bar{
+    width: 45px;
+    height: 40px;
+    background: green;
+}
+
 .error{
     color: white;
 }
@@ -165,6 +166,10 @@ body{
     left: 460px;
     box-shadow: 0 0 8px 1px rgba(0,0,0,.2);
     overflow: hidden;
+}
+
+.alert-register>.alert{
+    margin-left: 40px;
 }
 
 .content>.content-box{

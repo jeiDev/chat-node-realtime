@@ -1,3 +1,6 @@
+<script>
+	if(localStorage.session) location.href = "/"
+</script>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -49,17 +52,66 @@
 					</div>
 					<div class="bar"></div>
 				</div>
+
+				<div class="alert success" id="successLogin">
+					<div class="img">
+						<img src="../assets/img/alert/success.jpg" alt="">
+					</div>
+					<div class="txt">
+						It has been successfully logged.
+					</div>
+					<div class="bar"></div>
+				</div>
+
 				<div class="alert error" id="incorrectCredentials">
 					<div class="img">
 						<img src="../assets/img/alert/danger.jpg" alt="">
 					</div>
 					<div class="txt">
-							The email or password is incorrect.
+						The email or password is incorrect.
 					</div>
 					<div class="bar"></div>
 				</div>
 			</div>
-			<div class="alert-box alert-register"></div>
+			<div class="alert-box alert-register">
+				<div class="alert error" id="emptyRegister">
+					<div class="img">
+						<img src="../assets/img/alert/danger.jpg" alt="">
+					</div>
+					<div class="txt">
+						The fields can not be empty.
+					</div>
+					<div class="bar"></div>
+				</div>
+				<div class="alert success" id="successLoginReg">
+					<div class="img">
+						<img src="../assets/img/alert/success.jpg" alt="">
+					</div>
+					<div class="txt">
+						User registered correctly.
+					</div>
+					<div class="bar"></div>
+				</div>
+				<div class="alert error" id="incorrectCredentialsReg">
+					<div class="img">
+						<img src="../assets/img/alert/danger.jpg" alt="">
+					</div>
+					<div class="txt">
+						The email or password is incorrect.
+					</div>
+					<div class="bar"></div>
+				</div>
+
+				<div class="alert error" id="useEmail">
+					<div class="img">
+						<img src="../assets/img/alert/danger.jpg" alt="">
+					</div>
+					<div class="txt">
+						This email is already in use.
+					</div>
+					<div class="bar"></div>
+				</div>
+			</div>
 		</div>
 		<div class="content content-left-minus" id="contentMove">
 			<div class="content-box content-register" id="contentRegister">
@@ -70,11 +122,11 @@
 				<div class="form-group">
 					<div class="box-input">
 						<div class="column">
-							<input type="text" placeholder="Full Name">
+							<input type="text" placeholder="Full Name" id="name">
 							<img src="../assets/svg/user.svg" alt="">
 						</div>
 						<div class="column">
-							<div class="bar"></div>
+							<div class="bar" id="barNameRegister"></div>
 						</div>
 					</div>
 				</div>
@@ -82,11 +134,11 @@
 				<div class="form-group">
 					<div class="box-input">
 						<div class="column">
-							<input type="text" placeholder="Email">
+							<input type="text" placeholder="Email" id="emailRegister">
 							<img src="../assets/svg/email.svg" alt="">
 						</div>
 						<div class="column">
-							<div class="bar"></div>
+							<div class="bar" id="barEmailRegister"></div>
 						</div>
 					</div>
 				</div>
@@ -94,11 +146,11 @@
 				<div class="form-group">
 					<div class="box-input">
 						<div class="column">
-							<input type="text" placeholder="Password">
+							<input type="password" placeholder="Password" id="passRegister">
 							<img src="../assets/svg/lock.svg" alt="">
 						</div>
 						<div class="column">
-							<div class="bar"></div>
+							<div class="bar" id="barPassRegister"></div>
 						</div>
 					</div>
 				</div>
@@ -106,7 +158,7 @@
 				<div class="form-group content-btn">
 					<div class="info"></div>
 					<div>
-						<div class="submit">
+						<div class="submit" id="register">
 							REGISTER
 						</div>
 					</div>
@@ -132,7 +184,7 @@
 				<div class="form-group">
 					<div class="box-input">
 						<div class="column">
-							<input type="text" placeholder="Password" id="passLogin">
+							<input type="password" placeholder="Password" id="passLogin">
 							<img src="../assets/svg/lock.svg" alt="">
 						</div>
 						<div class="column">

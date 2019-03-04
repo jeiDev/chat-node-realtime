@@ -7,7 +7,7 @@ var api = "http://192.168.8.104:3000/api/",
 function provider(data) {
     return new Promise(function (resolve, reject) {
         let xhr = new XMLHttpRequest()
-
+        
         xhr.open(data.type, data.url)
         xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8")
         xhr.onload = () => {

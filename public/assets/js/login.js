@@ -1,4 +1,5 @@
-var alertLoginActive = false;
+var alertActive = false,
+    emptyLogin = document.getElementById("emptyLogin");
 
 document.body.onload = init
 
@@ -9,7 +10,7 @@ function init() {
     let contentMove = document.getElementById("contentMove"),
         contentRegister = document.getElementById("contentRegister"),
         contentLogin = document.getElementById("contentLogin"),
-        onClickLogin = false;
+        onClick = false;
 
     document.getElementById("showSignUp").addEventListener("click", () => {
         contentMove.classList.add("animation-left-minus")
@@ -32,14 +33,15 @@ function init() {
     })
 
     document.getElementById("login").addEventListener("click", () => {
-        if (onClickLogin) return
-        onClickLogin = true
+        if (onClick) return
+        onClick = true
 
         let email = document.getElementById("emailLogin").value,
             pass = document.getElementById("passLogin").value,
             barEmailLogin = document.getElementById("barEmailLogin"),
             barPassLogin = document.getElementById("barPassLogin"),
-            emptyLogin = document.getElementById("emptyLogin");
+            incorrectCredentials = document.getElementById("incorrectCredentials"),
+            successLogin = document.getElementById("successLogin");
 
         if (email == "") barEmailLogin.style.background = "hsla(0, 100%, 51%, 0.63)"
         else barEmailLogin.style.background = "hsla(214, 100%, 51%, 0.63)"
@@ -49,46 +51,175 @@ function init() {
 
 
         if (email == "" || pass == "") {
-            if (alertLoginActive) {
-                onClickLogin = false
+            if (alertActive) {
+                onClick = false
                 return
             }
             emptyLogin.style.top = "0"
 
             setTimeout(() => {
                 emptyLogin.style.top = "-40px"
-                alertLoginActive = false
-                onClickLogin = false
+                alertActive = false
+                onClick = false
             }, 2000)
             return
         }
 
-        login(email, pass)
-        onClickLogin = false
+        login(email, pass).then(res => {
+            res.token = res.id
+            res.id = res.userId
+            localStorage.session = JSON.stringify(res)
+            if (!alertActive) {
+                alertActive = true
+                successLogin.style.top = "0"
+
+                setTimeout(() => {
+                    successLogin.style.top = "-40px"
+                    alertActive = false
+                    onClick = false
+                }, 2000)
+
+                setTimeout(() => {
+                    location.href = "/"
+                }, 500)
+            }
+        }).catch(err => {
+            if (err == "LOGIN_FAILED") {
+                if (!alertActive) {
+                    alertActive = true
+                    incorrectCredentials.style.top = "0"
+
+                    setTimeout(() => {
+                        incorrectCredentials.style.top = "-40px"
+                        alertActive = false
+                        onClick = false
+                    }, 2000)
+
+                }
+            }
+        })
+    })
+
+    document.getElementById("register").addEventListener("click", () => {
+        if (onClick) return
+        onClick = true
+
+        let name = document.getElementById("name").value,
+            email = document.getElementById("emailRegister").value,
+            pass = document.getElementById("passRegister").value,
+            barNameRegister = document.getElementById("barNameRegister"),
+            barEmailRegister = document.getElementById("barEmailRegister"),
+            barPassRegister = document.getElementById("barPassRegister"),
+            emptyRegister = document.getElementById("emptyRegister"),
+            incorrectCredentialsReg = document.getElementById("incorrectCredentialsReg"),
+            successLoginReg = document.getElementById("successLoginReg"),
+            useEmail = document.getElementById("useEmail");
+
+
+        if (name == "") barNameRegister.style.background = "hsla(0, 100%, 51%, 0.63)"
+        else barNameRegister.style.background = "hsla(214, 100%, 51%, 0.63)"
+
+        if (email == "") barEmailRegister.style.background = "hsla(0, 100%, 51%, 0.63)"
+        else barEmailRegister.style.background = "hsla(214, 100%, 51%, 0.63)"
+
+        if (pass == "") barPassRegister.style.background = "hsla(0, 100%, 51%, 0.63)"
+        else barPassRegister.style.background = "hsla(214, 100%, 51%, 0.63)"
+
+        if (name == "" || email == "" || pass == "") {
+            if (alertActive) {
+                onClick = false
+                return
+            }
+            emptyRegister.style.top = "0"
+
+            setTimeout(() => {
+                emptyRegister.style.top = "-40px"
+                alertActive = false
+                onClick = false
+            }, 2000)
+            return
+        }
+
+        register(name, email, pass).then(res => {
+            login(email, pass).then(res => {
+                res.token = res.id
+                res.id = res.userId
+                localStorage.session = JSON.stringify(res)
+                if (!alertActive) {
+                    alertActive = true
+                    successLoginReg.style.top = "0"
+
+                    setTimeout(() => {
+                        successLoginReg.style.top = "-40px"
+                        alertActive = false
+                        onClick = false
+                    }, 2000)
+
+                    setTimeout(() => {
+                        location.href = "/"
+                    }, 500)
+                }
+            }).catch(err => {
+                if (err == "LOGIN_FAILED") {
+                    if (!alertActive) {
+                        alertActive = true
+                        incorrectCredentialsReg.style.top = "0"
+
+                        setTimeout(() => {
+                            incorrectCredentialsReg.style.top = "-40px"
+                            alertActive = false
+                            onClick = false
+                        }, 2000)
+                    }
+                }
+            })
+        }).catch(err => {
+            if (err.error.details.messages.email && err.error.details.messages.email == "Email already exists") {
+                alertActive = true
+                useEmail.style.top = "0"
+
+                setTimeout(() => {
+                    useEmail.style.top = "-40px"
+                    alertActive = false
+                    onClick = false
+                }, 2000)
+            }
+        })
+
+
     })
 }
 
 function login(email, pass) {
-    let data = {
-        type: "POST",
-        data: {email, password: pass},
-        url: `${api}Users/login`,
-    }
-
-    provider(data).then(res => {
-        
-    }).catch(err => {
-        if(err.error.code == "LOGIN_FAILED"){
-            if(!alertLoginActive){
-                alertLoginActive = true
-                let incorrectCredentials = document.getElementById("incorrectCredentials")
-                incorrectCredentials.style.top = "0"
-
-                setTimeout(() => {
-                    incorrectCredentials.style.top = "-40px"
-                    alertLoginActive = false
-                }, 2000)
-            }
+    return new Promise(function (resolve, reject) {
+        let data = {
+            type: "POST",
+            data: { email, password: pass },
+            url: `${api}Users/login`,
         }
+
+        provider(data).then(res => {
+            resolve(res)
+        }).catch(err => {
+            reject(err.error.code)
+        })
     })
+}
+
+
+function register(name, email, pass) {
+    return new Promise(function (resolve, reject) {
+        let data = {
+            type: "POST",
+            data: { realm: name, email, password: pass },
+            url: `${api}Users`,
+        }
+
+        provider(data).then(res => {
+            resolve(res)
+        }).catch(err => {
+            reject(err)
+        })
+    })
+
 }
