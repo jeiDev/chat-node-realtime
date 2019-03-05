@@ -1,20 +1,158 @@
 <script>
-    if(!localStorage.session) location.href = "/login"
+    if (!localStorage.session) location.href = "/login"
 </script>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Home</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="../assets/css/home.css">
     <script src="/socket.io/socket.io.js"></script>
 </head>
+
 <body>
-    <div id="show"></div>
+    <header>
+        <div class="box-img-profile">
+            <img src="http://fundaciontem.org/wp-content/uploads/2016/04/sinay-segun-veronica-1.jpg" alt="">
+        </div>
+        <span>Jei Devp</span>
+        <i class="fas fa-angle-down"></i>
+    </header>
+    <main>
+        <div class="user-active">
+            <div class="search">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search...">
+            </div>
+            <div class="list">
+                <div class="user">
+                    <div class="box-img">
+                        <div class="align-img">
+                            <img src="http://fundaciontem.org/wp-content/uploads/2016/04/sinay-segun-veronica-1.jpg"
+                                alt="">
+                        </div>
+                    </div>
+                    <div class="cont-text">
+                        <div class="name">Name Text</div>
+                        <div class="status">
+                            I have money
+                        </div>
+                    </div>
+                </div>
+                <div class="user">
+                    <div class="box-img">
+                        <div class="align-img">
+                            <img src="http://fundaciontem.org/wp-content/uploads/2016/04/sinay-segun-veronica-1.jpg"
+                                alt="">
+                        </div>
+                    </div>
+                    <div class="cont-text">
+                        <div class="name">Name Text</div>
+                        <div class="status">
+                            I have money
+                        </div>
+                    </div>
+                </div>
+                <div class="user">
+                    <div class="box-img">
+                        <div class="align-img">
+                            <img src="http://fundaciontem.org/wp-content/uploads/2016/04/sinay-segun-veronica-1.jpg"
+                                alt="">
+                        </div>
+                    </div>
+                    <div class="cont-text">
+                        <div class="name">Name Text</div>
+                        <div class="status">
+                            I have money
+                        </div>
+                    </div>
+                </div>
+                <div class="user">
+                    <div class="box-img">
+                        <div class="align-img">
+                            <img src="http://fundaciontem.org/wp-content/uploads/2016/04/sinay-segun-veronica-1.jpg"
+                                alt="">
+                        </div>
+                    </div>
+                    <div class="cont-text">
+                        <div class="name">Name Text</div>
+                        <div class="status">
+                            I have money
+                        </div>
+                    </div>
+                </div>
+                <div class="user">
+                    <div class="box-img">
+                        <div class="align-img">
+                            <img src="http://fundaciontem.org/wp-content/uploads/2016/04/sinay-segun-veronica-1.jpg"
+                                alt="">
+                        </div>
+                    </div>
+                    <div class="cont-text">
+                        <div class="name">Name Text</div>
+                        <div class="status">
+                            I have money
+                        </div>
+                    </div>
+                </div>
+                <div class="user">
+                    <div class="box-img">
+                        <div class="align-img">
+                            <img src="http://fundaciontem.org/wp-content/uploads/2016/04/sinay-segun-veronica-1.jpg"
+                                alt="">
+                        </div>
+                    </div>
+                    <div class="cont-text">
+                        <div class="name">Name Text</div>
+                        <div class="status">
+                            I have money
+                        </div>
+                    </div>
+                </div>
+                <div class="user">
+                    <div class="box-img">
+                        <div class="align-img">
+                            <img src="http://fundaciontem.org/wp-content/uploads/2016/04/sinay-segun-veronica-1.jpg"
+                                alt="">
+                        </div>
+                    </div>
+                    <div class="cont-text">
+                        <div class="name">Name Text</div>
+                        <div class="status">
+                            I have money
+                        </div>
+                    </div>
+                </div>
+                <div class="user">
+                    <div class="box-img">
+                        <div class="align-img">
+                            <img src="http://fundaciontem.org/wp-content/uploads/2016/04/sinay-segun-veronica-1.jpg"
+                                alt="">
+                        </div>
+                    </div>
+                    <div class="cont-text">
+                        <div class="name">Name Text</div>
+                        <div class="status">
+                            I have money
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-message">
+
+        </div>
+    </main>
+    <!-- <div id="show"></div>
     <textarea id="message">Text example</textarea>
-    <input type="button" value="send" id="send">
+    <input type="button" value="send" id="send"> -->
     <script src="../assets/js/main.js"></script>
     <script src="../assets/js/home.js"></script>
 </body>
+
 </html>
