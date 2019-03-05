@@ -167,4 +167,127 @@ main>.user-active>.search>input:focus{
 }
 
 
+.container-message{
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.box-message{
+    flex: 1 1 auto;
+    overflow: hidden;
+    overflow-y:scroll; 
+}
+
+.box-send-message{
+    display: flex;
+    box-sizing: border-box;
+    padding: 10px;
+    background: rgba(0,0,0,.03);
+    align-items: center;
+    box-sizing: border-box;
+    min-height: 50px;
+}
+
+.box-message-write{
+    flex: 1 1 auto;
+    display: flex;
+    margin: 0 5px;
+}
+
+.box-message-write>input{
+    border: none;
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    background: transparent;
+    padding: 5px;
+}
+
+.box-message-write>input:focus{
+    outline: 0px;
+}
+
+.box-emoji>i{
+    cursor: pointer;
+    color: rgba(0,0,0,.5);
+}
+
+.box-send>i{
+    cursor: pointer;
+    color: rgba(0,0,0,.5);
+    position: relative;
+    transform: rotate(45deg);
+}
+
+.message{
+    display: flex;
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+.message>.image-message{
+    height: 40px;
+    width: 40px;
+    min-width: 40px;
+    min-height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.message>.image-message>img{
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+}
+
+.message>.msg{
+    box-sizing: border-box;
+    padding: 10px;
+    width: 500px;
+    border-radius: 5px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: .7em;
+    text-align: justify;
+    position: relative;
+    margin-top: 5px;
+}
+
+.message-user{
+    font-size: .8em;
+    margin-bottom: 5px;
+}
+
+.you{
+    flex-direction: row-reverse;
+}
+
+.you>.msg{
+    background: rgba(0,0,0,.1);
+    margin-right: 15px;   
+    color: rgba(0,0,0,.5);
+}
+
+.you>.msg>.box-arrow{
+    right: -7px;
+    color: rgba(0,0,0,.1);
+}
+
+.other>.msg{
+    background: hsla(214, 100%, 51%, 0.781);
+    color: white;
+    margin-left: 15px;   
+}
+
+.other>.msg>.box-arrow{
+    left: -8px;
+    color: hsla(214, 100%, 51%, 0.781);
+}
+
+.box-arrow{
+    position: absolute;
+    top: 3px;
+    font-size: 2em;
+}
 
