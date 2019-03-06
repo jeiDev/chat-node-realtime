@@ -153,6 +153,7 @@ main>.user-active>.search>input:focus{
     display: flex;
     flex-direction: column;
     justify-content: center;
+    flex: 1 1 auto;
 }
 
 .name{
@@ -291,3 +292,20 @@ main>.user-active>.search>input:focus{
     font-size: 2em;
 }
 
+.st{
+    min-width: 15px;
+    width: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.-status-{
+    width: 15px;
+    height: 15px;
+    background: rgba(0,0,0,.2);
+    border-radius: 50%;
+}
+
+.-status-on-{
+    background: #6bbb07;
+}

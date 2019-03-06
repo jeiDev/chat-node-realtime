@@ -5,6 +5,9 @@ function routes() {
 		path = require("path"),
 		io = require("socket.io")(http);
 
+	var userConnect = {},
+		userDisconnect = []
+
 	app.use(express.static('public'))
 	app.get('/', function (req, res) {
 		let url = `${__dirname}/../public/pages/index.html`
@@ -21,15 +24,25 @@ function routes() {
 			io.emit('message', msg);
 		});
 
-		socket.on('dataUser', function (dataUser) {
-			//io.emit('name', name);
-			console.log('dataUser: ', dataUser);
-		});
+		socket.on('dataUser', function (user) {
+			if(!userConnect[user.id]) userConnect[user.id] = {name: user.name}
+			io.emit('online', userConnect);
+			userDisconnect.splice(userDisconnect.indexOf(user.id), 1)
+			socket.on('disconnect', function () {
+				if(userDisconnect.indexOf(user.id) === -1) userDisconnect.push(user.id)
+				io.emit('disconn', user.id);
+			});
 
-		//socket.broadcast.emit('hi');
+			setInterval(()=>{
+				if(userDisconnect.length > 0){
+					io.emit('status', userDisconnect);
+					
+					for (let i = 0; i < userDisconnect.length; i++) delete userConnect[userDisconnect[i]]
 
-		socket.on('disconnect', function () {
-			console.log('user disconnected');
+					userDisconnect = []
+				}
+				
+			},5000)
 		});
 
 	})

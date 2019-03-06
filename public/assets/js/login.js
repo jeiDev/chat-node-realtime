@@ -1,6 +1,5 @@
 var alertActive = false,
-    emptyLogin = document.getElementById("emptyLogin"),
-    socket = io();
+    emptyLogin = document.getElementById("emptyLogin");
 
 document.body.onload = init
 
@@ -72,7 +71,6 @@ function init() {
             getDataUser(res.userId).then(r => {
                 r.token = res.id
                 localStorage.session = JSON.stringify(r)
-                socket.emit('dataUser', {email: r.email, name: r.realm, id: r.id});                console.log(res)
                 if (!alertActive) {
                     alertActive = true
                     successLogin.style.top = "0"
@@ -84,7 +82,7 @@ function init() {
                     }, 2000)
 
                     setTimeout(() => {
-                        //location.href = "/"
+                        location.href = "/"
                     }, 500)
                 }
             }).catch(err => {
