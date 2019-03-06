@@ -6,7 +6,8 @@ function routes() {
 		io = require("socket.io")(http);
 
 	var userConnect = {},
-		userDisconnect = []
+		userDisconnect = [],
+		msgSave = []
 
 	app.use(express.static('public'))
 	app.get('/', function (req, res) {
@@ -20,8 +21,14 @@ function routes() {
 	});
 
 	io.on('connection', function (socket) {
+	
+		socket.on('getMessageId', function (id) {
+			io.emit('getMessage', {messages: msgSave, id});
+		});
+
 		socket.on('message', function (msg) {
-			io.emit('message', msg);
+			msgSave.push(msg)
+			io.emit('msg', msg);
 		});
 
 		socket.on('dataUser', function (user) {
@@ -42,7 +49,7 @@ function routes() {
 					userDisconnect = []
 				}
 				
-			},5000)
+			},15000)
 		});
 
 	})

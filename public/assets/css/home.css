@@ -160,6 +160,7 @@ main>.user-active>.search>input:focus{
     color: hsla(214, 100%, 51%, 0.781);
     font-weight: 600;
     font-size: .9em;
+    display: flex;
 }
 
 .status{
@@ -253,6 +254,7 @@ main>.user-active>.search>input:focus{
     text-align: justify;
     position: relative;
     margin-top: 5px;
+    word-break: break-all;
 }
 
 .message-user{
@@ -309,3 +311,19 @@ main>.user-active>.search>input:focus{
 .-status-on-{
     background: #6bbb07;
 }
+
+.type-you{
+    color: rgba(0,0,0,.2)!important;
+    font-size: .5em;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding-right: 10px;
+}
+
+.real-name{
+    flex: 1 1 auto;
+}
+
+
+

@@ -1,4 +1,4 @@
-var api = "http://localhost:3000/api/",
+var api = "http://10.0.10.8:3000/api/",
     token = localStorage.session ? JSON.parse(localStorage.session).token : null
 
 /*

@@ -15,9 +15,8 @@ socket.on('status', function (ids) {
 });
 
 socket.on('online', function (user) {
-    console.log("entre")
     Object.keys(user).forEach(key => {
-        if(!document.getElementById(`user${key}`)){
+        if (!document.getElementById(`user${key}`)) {
             let parent = document.getElementById("lists");
             let containerUser = document.createElement("div")
             let html = ""
@@ -29,32 +28,83 @@ socket.on('online', function (user) {
             html += '</div>'
             html += '</div>'
             html += '<div class="cont-text">'
-            html += `<div class="name">${user[key].name}</div>`
+            html += `<div class="name"><div class="real-name">${user[key].name}</div> <div class="type-you">${dataUSer.id == key ? "(You)" : ""}</div></div>`
             html += '<div class="status">'
             html += 'I have money'
             html += '</div>'
             html += '</div>'
             html += '<div class="st">'
             html += `<div class="-status- -status-on-"></div>`
-            html += '</div>'              
-        
+            html += '</div>'
+
             containerUser.innerHTML = html
             parent.appendChild(containerUser)
-        }else document.getElementById(`user${key}`).querySelector(".st .-status-").classList.add("-status-on-")
+        } else document.getElementById(`user${key}`).querySelector(".st .-status-").classList.add("-status-on-")
     })
-    
+
 });
 
-// document.getElementById("send").addEventListener("click", (e) => {
-//     e.preventDefault()
-//     let message = document.getElementById("message")
-//     socket.emit('message', message.value);
-//     message.value = ""
-//     return false;
-// })
+socket.on('msg', function (msg) {
+    let parent = document.getElementById("message")
+    let div = document.createElement("div")
+    let html = ""
 
-// socket.on('message', function (msg) {
-//     let li = document.createElement("li")
-//     li.innerText = msg
-//     document.getElementById("show").appendChild(li);
-// });
+    div.classList.add("message")
+
+    html += '<div class="image-message">'
+    html += '<img src="http://fundaciontem.org/wp-content/uploads/2016/04/sinay-segun-veronica-1.jpg" alt="">'
+    html += '</div>'
+    html += '<div class="msg">'
+    html += '<div class="box-arrow">'
+    html += `<i class="${msg.id == dataUSer.id ? "fas fa-caret-right" : "fas fa-caret-left"}"></i>`
+    html += '</div>'
+    html += `<div class="message-user">${msg.id != dataUSer.id ? msg.name : "You"}</div>`
+    html += `<p>${msg.msg}</p>`
+    html += '</div>'
+
+    if (msg.id === dataUSer.id) div.classList.add("you")
+    else div.classList.add("other")
+    div.innerHTML = html
+    parent.appendChild(div)
+});
+
+socket.emit('getMessageId', { id: dataUSer.id });
+
+
+socket.on('getMessage', function (msgs) {
+    if(+msgs.id.id != dataUSer.id) return
+    let messages = msgs.messages
+    for (let i = 0; i < messages.length; i++) {
+        let parent = document.getElementById("message")
+        let div = document.createElement("div")
+        let html = ""
+
+        div.classList.add("message")
+
+        html += '<div class="image-message">'
+        html += '<img src="http://fundaciontem.org/wp-content/uploads/2016/04/sinay-segun-veronica-1.jpg" alt="">'
+        html += '</div>'
+        html += '<div class="msg">'
+        html += '<div class="box-arrow">'
+        html += `<i class="${messages[i].id == dataUSer.id ? "fas fa-caret-right" : "fas fa-caret-left"}"></i>`
+        html += '</div>'
+        html += `<div class="message-user">${messages[i].id != dataUSer.id ? messages[i].name : "You"}</div>`
+        html += `<p>${messages[i].msg}</p>`
+        html += '</div>'
+
+        if (messages[i].id === dataUSer.id) div.classList.add("you")
+        else div.classList.add("other")
+        div.innerHTML = html
+        parent.appendChild(div)
+    }
+});
+
+
+let txtMessage = document.getElementById("txtMessage")
+txtMessage.addEventListener("keypress", (e) => {
+    if (e.keyCode == 13) {
+        if (txtMessage.value == "") return
+        socket.emit('message', { id: dataUSer.id, name: dataUSer.realm, msg: txtMessage.value });
+        txtMessage.value = ""
+    }
+})

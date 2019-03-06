@@ -147,35 +147,75 @@ function init() {
         }
 
         register(name, email, pass).then(res => {
+            // login(email, pass).then(res => {
+            //     res.token = res.id
+            //     res.id = res.userId
+               
+            //     if (!alertActive) {
+            //         alertActive = true
+            //         successLoginReg.style.top = "0"
+
+            //         setTimeout(() => {
+            //             successLoginReg.style.top = "-40px"
+            //             alertActive = false
+            //             onClick = false
+            //         }, 2000)
+
+            //         setTimeout(() => {
+            //             location.href = "/"
+            //         }, 500)
+            //     }
+            // }).catch(err => {
+            //     if (err == "LOGIN_FAILED") {
+            //         if (!alertActive) {
+            //             alertActive = true
+            //             incorrectCredentialsReg.style.top = "0"
+
+            //             setTimeout(() => {
+            //                 incorrectCredentialsReg.style.top = "-40px"
+            //                 alertActive = false
+            //                 onClick = false
+            //             }, 2000)
+            //         }
+            //     }
+            // })
+
             login(email, pass).then(res => {
                 res.token = res.id
-                res.id = res.userId
                 localStorage.session = JSON.stringify(res)
-                if (!alertActive) {
-                    alertActive = true
-                    successLoginReg.style.top = "0"
-
-                    setTimeout(() => {
-                        successLoginReg.style.top = "-40px"
-                        alertActive = false
-                        onClick = false
-                    }, 2000)
-
-                    setTimeout(() => {
-                        location.href = "/"
-                    }, 500)
-                }
+                getDataUser(res.userId).then(r => {
+                    r.token = res.id
+                    localStorage.session = JSON.stringify(r)
+                    if (!alertActive) {
+                        alertActive = true
+                        successLogin.style.top = "0"
+    
+                        setTimeout(() => {
+                            successLogin.style.top = "-40px"
+                            alertActive = false
+                            onClick = false
+                        }, 2000)
+    
+                        setTimeout(() => {
+                            location.href = "/"
+                        }, 500)
+                    }
+                }).catch(err => {
+    
+                })
+    
             }).catch(err => {
                 if (err == "LOGIN_FAILED") {
                     if (!alertActive) {
                         alertActive = true
-                        incorrectCredentialsReg.style.top = "0"
-
+                        incorrectCredentials.style.top = "0"
+    
                         setTimeout(() => {
-                            incorrectCredentialsReg.style.top = "-40px"
+                            incorrectCredentials.style.top = "-40px"
                             alertActive = false
                             onClick = false
                         }, 2000)
+    
                     }
                 }
             })
