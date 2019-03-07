@@ -272,7 +272,7 @@ main>.user-active>.search>input:focus{
 .you>.msg{
     background: rgba(0,0,0,.1);
     margin-right: 15px;   
-    color: rgba(0,0,0,.5);
+    color: color:black;
 }
 
 .you>.msg>.box-arrow{

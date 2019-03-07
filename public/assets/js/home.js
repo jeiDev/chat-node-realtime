@@ -48,6 +48,7 @@ socket.on('msg', function (msg) {
     let parent = document.getElementById("message")
     let div = document.createElement("div")
     let html = ""
+    let exists = false
     div.classList.add("message")
     html += '<div class="image-message">'
     html += '<img src="http://fundaciontem.org/wp-content/uploads/2016/04/sinay-segun-veronica-1.jpg" alt="">'
@@ -57,11 +58,19 @@ socket.on('msg', function (msg) {
     html += `<i class="${msg.id == dataUSer.id ? "fas fa-caret-right" : "fas fa-caret-left"}"></i>`
     html += '</div>'
     html += `<div class="message-user">${msg.id != dataUSer.id ? msg.name : "You"}</div>`
-    Object.keys(emojis).forEach(key => {
-        html += `<div class="show-message">${msg.msg.indexOf(key) !== -1 ? msg.msg.replace(new RegExp(key, 'g'), `<img src="../assets/img/emojis/${emojis[key]}" style="height: 15px;">`) : msg.msg}</div>`
-    })
 
-    if (Object.keys(emojis).length < 1) html += `<div class="show-message">${msg.msg}</div>`
+    for (let i = 0; i < emojis.length; i++) {
+        if(msg.msg.indexOf(emojis[i].codes) !== -1){
+            exists = true
+            html += `<div class="show-message">${msg.msg.indexOf(emojis[i].codes) !== -1 ? msg.msg.replace(new RegExp(emojis[i].codes, 'g'), emojis[i].char) : msg.msg}</div>`
+        } 
+        if((i+1) == emojis.length && !exists){
+            html += `<div class="show-message">${msg.msg}</div>`
+        } 
+    }
+    exists = false
+
+    if (emojis.length < 1) html += `<div class="show-message">${msg.msg}</div>`
     html += '</div>'
 
     if (msg.id === dataUSer.id) div.classList.add("you")
@@ -81,6 +90,7 @@ socket.on('getMessage', function (msgs) {
         let parent = document.getElementById("message")
         let div = document.createElement("div")
         let html = ""
+        let exists = false
 
         div.classList.add("message")
 
@@ -92,11 +102,22 @@ socket.on('getMessage', function (msgs) {
         html += `<i class="${messages[i].id == dataUSer.id ? "fas fa-caret-right" : "fas fa-caret-left"}"></i>`
         html += '</div>'
         html += `<div class="message-user">${messages[i].id != dataUSer.id ? messages[i].name : "You"}</div>`
-        Object.keys(emojis).forEach(key => { 
-            html += `<div class="show-message">${messages[i].msg.indexOf(key) !== -1 ? messages[i].msg.replace(new RegExp(key, 'g'), `<img src="../assets/img/emojis/${emojis[key]}" style="height: 15px;">`) : messages[i].msg}</div>`
-        })
+
+
+
+        for (let e = 0; e < emojis.length; e++) {
+            if(messages[i].msg.indexOf(emojis[e].codes) !== -1){
+                exists = true
+                html += `<div class="show-message">${messages[i].msg.indexOf(emojis[e].codes) !== -1 ? messages[i].msg.replace(new RegExp(emojis[e].codes, 'g'), emojis[e].char) : messages[i].msg}</div>`
+            } 
+            if((e+1) == emojis.length && !exists) html += `<div class="show-message">${messages[i].msg}</div>`
+        }   
+        
+
+        exists = false
     
-        if(Object.keys(emojis).length < 1) html += `<div class="show-message">${messages[i].msg}</div>`
+        if (emojis.length < 1) html += `<div class="show-message">${messages[i].msg}</div>`
+
         html += '</div>'
 
         if (messages[i].id === dataUSer.id) div.classList.add("you")
