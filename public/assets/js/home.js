@@ -43,7 +43,7 @@ socket.on('online', function (user) {
     })
 
 });
-
+console.log()
 socket.on('msg', function (msg) {
     let parent = document.getElementById("message")
     let div = document.createElement("div")
