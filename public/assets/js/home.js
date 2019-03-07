@@ -48,9 +48,7 @@ socket.on('msg', function (msg) {
     let parent = document.getElementById("message")
     let div = document.createElement("div")
     let html = ""
-
     div.classList.add("message")
-
     html += '<div class="image-message">'
     html += '<img src="http://fundaciontem.org/wp-content/uploads/2016/04/sinay-segun-veronica-1.jpg" alt="">'
     html += '</div>'
@@ -59,7 +57,11 @@ socket.on('msg', function (msg) {
     html += `<i class="${msg.id == dataUSer.id ? "fas fa-caret-right" : "fas fa-caret-left"}"></i>`
     html += '</div>'
     html += `<div class="message-user">${msg.id != dataUSer.id ? msg.name : "You"}</div>`
-    html += `<p>${msg.msg}</p>`
+    Object.keys(emojis).forEach(key => {
+        html += `<div class="show-message">${msg.msg.indexOf(key) !== -1 ? msg.msg.replace(new RegExp(key, 'g'), `<img src="../assets/img/emojis/${emojis[key]}" style="height: 15px;">`) : msg.msg}</div>`
+    })
+
+    if (Object.keys(emojis).length < 1) html += `<div class="show-message">${msg.msg}</div>`
     html += '</div>'
 
     if (msg.id === dataUSer.id) div.classList.add("you")
@@ -72,7 +74,8 @@ socket.emit('getMessageId', { id: dataUSer.id });
 
 
 socket.on('getMessage', function (msgs) {
-    if(+msgs.id.id != dataUSer.id) return
+
+    if (+msgs.id.id != dataUSer.id) return
     let messages = msgs.messages
     for (let i = 0; i < messages.length; i++) {
         let parent = document.getElementById("message")
@@ -89,13 +92,18 @@ socket.on('getMessage', function (msgs) {
         html += `<i class="${messages[i].id == dataUSer.id ? "fas fa-caret-right" : "fas fa-caret-left"}"></i>`
         html += '</div>'
         html += `<div class="message-user">${messages[i].id != dataUSer.id ? messages[i].name : "You"}</div>`
-        html += `<p>${messages[i].msg}</p>`
+        Object.keys(emojis).forEach(key => { 
+            html += `<div class="show-message">${messages[i].msg.indexOf(key) !== -1 ? messages[i].msg.replace(new RegExp(key, 'g'), `<img src="../assets/img/emojis/${emojis[key]}" style="height: 15px;">`) : messages[i].msg}</div>`
+        })
+    
+        if(Object.keys(emojis).length < 1) html += `<div class="show-message">${messages[i].msg}</div>`
         html += '</div>'
 
         if (messages[i].id === dataUSer.id) div.classList.add("you")
         else div.classList.add("other")
         div.innerHTML = html
         parent.appendChild(div)
+
     }
 });
 
@@ -103,8 +111,16 @@ socket.on('getMessage', function (msgs) {
 let txtMessage = document.getElementById("txtMessage")
 txtMessage.addEventListener("keypress", (e) => {
     if (e.keyCode == 13) {
-        if (txtMessage.value == "") return
-        socket.emit('message', { id: dataUSer.id, name: dataUSer.realm, msg: txtMessage.value });
-        txtMessage.value = ""
+        if (txtMessage.innerText.trim() == "") {
+            setTimeout(() => {
+                txtMessage.innerHTML = ""
+            }, 1)
+
+            return
+        }
+        socket.emit('message', { id: dataUSer.id, name: dataUSer.realm, msg: txtMessage.innerText });
+        setTimeout(() => {
+            txtMessage.innerHTML = ""
+        }, 1)
     }
 })

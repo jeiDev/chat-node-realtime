@@ -193,21 +193,24 @@ main>.user-active>.search>input:focus{
 }
 
 .box-message-write{
-    flex: 1 1 auto;
+    flex: 1 1 0;
     display: flex;
     margin: 0 5px;
-}
-
-.box-message-write>input{
-    border: none;
-    flex: 1 1 auto;
     display: flex;
-    align-items: center;
-    background: transparent;
-    padding: 5px;
+    box-sizing: border-box;
+    word-break: break-all;
 }
 
-.box-message-write>input:focus{
+.box-message-write>div{
+    padding: 5px;
+    flex: 1 1 0;
+    box-sizing: border-box;
+    overflow: hidden;
+    overflow-y: scroll;
+    max-height: 84;
+}
+
+.box-message-write>div:focus{
     outline: 0px;
 }
 
@@ -323,6 +326,12 @@ main>.user-active>.search>input:focus{
 
 .real-name{
     flex: 1 1 auto;
+}
+
+.show-message{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
 
