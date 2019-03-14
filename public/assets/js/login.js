@@ -147,39 +147,6 @@ function init() {
         }
 
         register(name, email, pass).then(res => {
-            // login(email, pass).then(res => {
-            //     res.token = res.id
-            //     res.id = res.userId
-               
-            //     if (!alertActive) {
-            //         alertActive = true
-            //         successLoginReg.style.top = "0"
-
-            //         setTimeout(() => {
-            //             successLoginReg.style.top = "-40px"
-            //             alertActive = false
-            //             onClick = false
-            //         }, 2000)
-
-            //         setTimeout(() => {
-            //             location.href = "/"
-            //         }, 500)
-            //     }
-            // }).catch(err => {
-            //     if (err == "LOGIN_FAILED") {
-            //         if (!alertActive) {
-            //             alertActive = true
-            //             incorrectCredentialsReg.style.top = "0"
-
-            //             setTimeout(() => {
-            //                 incorrectCredentialsReg.style.top = "-40px"
-            //                 alertActive = false
-            //                 onClick = false
-            //             }, 2000)
-            //         }
-            //     }
-            // })
-
             login(email, pass).then(res => {
                 res.token = res.id
                 localStorage.session = JSON.stringify(res)
@@ -234,6 +201,21 @@ function init() {
 
 
     })
+
+    document.getElementById("forgetPassword").addEventListener("click", () => {
+        let contentMove = document.getElementById("contentMove")
+        let itemMoves = contentMove.querySelectorAll("div")
+        
+        document.getElementById("contentLogin").style.minWidth = "100%"
+        contentMove.classList.add("animation-forget-pass")
+
+        for (let i = 0; i < itemMoves.length; i++) itemMoves[i].classList.add("animation-forget-pass-div")
+        
+
+        setTimeout(()=>{
+            createChangePass()
+        },600)
+    })
 }
 
 function login(email, pass) {
@@ -277,5 +259,49 @@ function getDataUser(id) {
         }).catch(err => {
             reject(err)
         })
+    })
+}
+
+
+function createChangePass(){
+    let container = document.createElement("div")
+    let contentCenter = document.createElement("div")
+    let h1 = document.createElement("h1")
+    let text = document.createElement("p")
+    let input = document.createElement("input")
+    let btn = document.createElement("div")
+    let contentBoxLogin = document.getElementById("contentBoxLogin")
+    
+    h1.innerText = "Change your password"
+    text.innerText = "If you do not remember your password please enter your email address and we will send a message to your email."
+    input.placeholder = "Enter your mail"
+    btn.innerText = "Change"
+    
+    input.setAttribute("type", "text")
+
+    container.style.width = `${contentBoxLogin.offsetWidth}px`
+    container.style.height = `${contentBoxLogin.offsetHeight}px`
+    container.classList.add("change-pass-container")
+    contentCenter.classList.add("container-align-change-pass")
+    h1.classList.add("h1-change-pass")
+    text.classList.add("text-change-pass")
+    input.classList.add("change-pass-input")
+    btn.classList.add("change-pass-btn")
+
+    document.body.appendChild(container)
+    container.appendChild(contentCenter)
+    contentCenter.appendChild(h1)
+    contentCenter.appendChild(text)
+    contentCenter.appendChild(input)
+    contentCenter.appendChild(btn)
+
+    setTimeout(()=>{
+        container.style.height = "100%"
+        container.style.width = "100%"
+    },50)
+
+    input.addEventListener("keyup", (e) => {
+        if(validateEmail(input.value)) btn.classList.add("activete-btn-change-pass")
+        else btn.classList.remove("activete-btn-change-pass")
     })
 }

@@ -1,4 +1,4 @@
-var api = "http://10.0.10.8:3000/api/",
+var api = "http://localhost:3000/api/",
     token = localStorage.session ? JSON.parse(localStorage.session).token : null
 
 /*
@@ -17,4 +17,8 @@ function provider(data) {
 
         xhr.send(`${data.data ? JSON.stringify(data.data) : null}`)
     })
+}
+
+function validateEmail(email){
+    return /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(email)
 }

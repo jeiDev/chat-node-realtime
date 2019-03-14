@@ -278,6 +278,88 @@ body{
     left: -500px;
 }
 
+
+/*******************************
+PAGE OF CHANGE PASSWORD
+*******************************/
+.change-pass-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    background: white;
+    transition: all ease .3s;
+}
+
+.container-align-change-pass{
+    width: 500px;
+    padding: 100px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 5px;
+}
+
+.h1-change-pass{
+    font-family: arial;
+    margin-bottom: 35px;
+    color: hsla(214, 100%, 51%, .8);
+}
+
+.text-change-pass{
+    font-family: arial;
+    text-align: center;
+    color: rgba(0,0,0,.4);
+    font-size: .9em;
+    margin-bottom: 10px;
+}
+
+.change-pass-input{
+    padding: 10px;
+    font-size: 1em;
+    width: 80%;
+    border-radius: 5px;
+    border: 1px solid hsla(214, 100%, 51%, 0.2);
+    color: hsla(214, 100%, 51%, 1);
+    text-align: center;
+    margin-top: 20px;
+}
+
+.change-pass-input::placeholder {
+    color: hsla(214, 100%, 51%, 0.63);
+    opacity: 1; 
+  }
+  
+.change-pass-input:-ms-input-placeholder {
+    color: hsla(214, 100%, 51%, 0.63);
+  }
+  
+.change-pass-input::-ms-input-placeholder {
+    color: hsla(214, 100%, 51%, 0.63);
+}
+
+.change-pass-input:focus{
+    outline: 0px;
+}
+
+.change-pass-btn{
+    text-align: center;
+    padding: 10px 0;
+    background: hsl(214, 91%, 76%);
+    font-weight: bold;
+    color: white;
+    margin-top: 30px;
+    width: 400px;
+    cursor: not-allowed;
+    font-family: Arial, Helvetica, sans-serif;
+    transition: all ease .5s;
+}
+
+.activete-btn-change-pass{
+    background: hsl(214, 87%, 60%);
+    cursor: pointer;
+}
+
 /*******************************
 ANIMATION
 *******************************/
@@ -287,6 +369,14 @@ ANIMATION
 
 .animation-left-plus{
     animation: .5s animationPlus forwards;
+}
+
+.animation-forget-pass{
+    animation: .5s animationForgetPass forwards;
+}
+
+.animation-forget-pass-div{
+    animation: .5s fadeOutPass forwards;
 }
 
 @keyframes animationMinus{
@@ -323,4 +413,31 @@ ANIMATION
     100%{
         left: 460px;
     }
+}
+
+@keyframes animationForgetPass{
+    
+    from{
+        left: 460px;
+        height: 110%;
+        width:500px;
+    }
+
+    to{
+        left: 0px;
+        height: 100%;
+        width:100%;
+    }
+}
+
+@keyframes fadeOutPass{
+    to{
+        opacity: 0;
+    }
+
+    from{
+        opacity: 1;
+    }
+
+    
 }
