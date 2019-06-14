@@ -5,10 +5,15 @@ function routes() {
 		path = require("path"),
 		io = require("socket.io")(http);
 
-	var userConnect = {},
-		userDisconnect = [],
-		msgSave = []
+	var userConnect = {}
+	var userDisconnect = []
+	var msgSave = []
+	var blockMsg = {}
 
+
+	/******************************
+	 * ROUTES *********************
+	******************************/
 	app.use(express.static('public'))
 	app.get('/', function (req, res) {
 		let url = `${__dirname}/../public/pages/index.html`
@@ -20,6 +25,14 @@ function routes() {
 		res.sendFile(path.join(url));
 	});
 
+	app.get('/profile', function (req, res) {
+		let url = `${__dirname}/../public/pages/profile.html`
+		res.sendFile(path.join(url));
+	});
+	
+	/******************************
+	 * SOCKECT ********************
+	******************************/
 	io.on('connection', function (socket) {
 	
 		socket.on('getMessageId', function (id) {
@@ -32,7 +45,8 @@ function routes() {
 		});
 
 		socket.on('dataUser', function (user) {
-			if(!userConnect[user.id]) userConnect[user.id] = {name: user.name}
+			console.log(user)
+			if(!userConnect[user.id]) userConnect[user.id] = {name: user.name, image: user.image}
 			io.emit('online', userConnect);
 			userDisconnect.splice(userDisconnect.indexOf(user.id), 1)
 			socket.on('disconnect', function () {
@@ -54,6 +68,9 @@ function routes() {
 
 	})
 
+	/******************************
+	 * RUN PORT SERVER ************
+	******************************/
 	http.listen(80, function () {
 		console.log('listening on *:80');
 	});

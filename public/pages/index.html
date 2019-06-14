@@ -8,24 +8,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Home</title>
+    <title>Chat</title>
     <link rel="stylesheet" href="../assets/css/fontawesome.min.css"
         integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="../assets/css/main.css">
     <link rel="stylesheet" href="../assets/css/home.css">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/emojify.js/1.1.0/css/basic/emojify.min.css" />
     <script src="/socket.io/socket.io.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/emojify.js/1.1.0/js/emojify.min.js"></script>
 </head>
 
 <body>
     <header>
-        <div class="box-img-profile">
-            <img src="http://fundaciontem.org/wp-content/uploads/2016/04/sinay-segun-veronica-1.jpg" alt="">
-        </div>
-        <span>Jei Devp</span>
-        <i class="fas fa-angle-down"></i>
+       
     </header>
     <main>
+        <div class="panel-option-user" id="panelOptionUser">
+            <div class="content-img">
+                <div class="box-img">
+                    <img src="" id="imgUserOption">
+                    <img src="../assets/img/load.gif" class="load-option" alt="" id="loadOption">
+                    <input type="file" id="fileInputOption" class="image-profile-55" accept="image/x-png,image/gif,image/jpeg">
+                </div>
+            </div>
+            <div class="content-form">
+                <div class="form-group">
+                    <input type="text" placeholder="Full name" id="fullnameOption">
+                </div>
+                <div class="form-group">
+                    <textarea placeholder="You status" id="statusOption"></textarea>
+                </div>
+                <div class="form-group cant-group">
+                    <span id="cantOption">195</span>
+                </div>
+            </div>
+            <div class="content-btns">
+                <div class="btn btn-cancel" id="cancelOption">Cancel</div>
+                <div class="btn btn-save" id="saveOption">Save</div>
+            </div>
+        </div>
+
+        <div class="menu-user" id="menuUserShow">
+            <div link="profile" class="nav"><i class="fas fa-user"></i><span>Profile</span></div>
+            <div link="signout" class="nav"><i class="fas fa-sign-out-alt"></i><span>Sign Out</span></div>
+        </div>
         <div class="user-active">
             <div class="search">
                 <i class="fas fa-search"></i>
@@ -36,12 +60,15 @@
         </div>
         <div class="container-message">
             <div class="box-message" id="message">
-               
+                <div class="show-cant-msg" id="showCantMsg">
+                    <div>
+                        <span id="cantMsg"></span>
+                        <span>New messages</span>
+                    </div>
+                </div>
             </div>
             <div class="box-send-message">
-                <div class="box-emoji">
-                    <i class="far fa-grin-alt"></i>
-                </div>
+               
                 <div class="box-message-write">
                     <div contenteditable="true" data-text="Send message..." class="text-message" id="txtMessage"></div>
                 </div>

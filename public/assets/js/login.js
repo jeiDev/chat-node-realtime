@@ -265,6 +265,7 @@ function getDataUser(id) {
 
 function createChangePass(){
     let container = document.createElement("div")
+    let back = document.createElement("i")
     let contentCenter = document.createElement("div")
     let h1 = document.createElement("h1")
     let text = document.createElement("p")
@@ -278,15 +279,23 @@ function createChangePass(){
     btn.innerText = "Change"
     
     input.setAttribute("type", "text")
+    back.setAttribute("class", "fas fa-arrow-left")
 
     container.style.width = `${contentBoxLogin.offsetWidth}px`
     container.style.height = `${contentBoxLogin.offsetHeight}px`
+    back.style.top = "10px"
+    back.style.left = "10px"
+    back.style.fontSize = "2em"
+    back.style.color = "#378dff"
+    back.style.position = "absolute"
+    back.style.cursor = "pointer"
     container.classList.add("change-pass-container")
     contentCenter.classList.add("container-align-change-pass")
     h1.classList.add("h1-change-pass")
     text.classList.add("text-change-pass")
     input.classList.add("change-pass-input")
     btn.classList.add("change-pass-btn")
+    
 
     document.body.appendChild(container)
     container.appendChild(contentCenter)
@@ -294,6 +303,7 @@ function createChangePass(){
     contentCenter.appendChild(text)
     contentCenter.appendChild(input)
     contentCenter.appendChild(btn)
+    container.appendChild(back)
 
     setTimeout(()=>{
         container.style.height = "100%"
