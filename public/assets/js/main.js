@@ -33,6 +33,7 @@ function createMenu() {
   let boxImgProfile = document.createElement("div")
   let imgPerfil = document.createElement("img")
   let panelOptionUser = document.getElementById("panelOptionUser")
+  let off = document.createElement("i")
 
   logo.setAttribute("class", "logo")
   logo.setAttribute("href", "/")
@@ -40,11 +41,13 @@ function createMenu() {
   showMenuProfile.setAttribute("id", "showMenuProfile")
   boxImgProfile.setAttribute("class", "box-img-profile image-profile-55")
   imgPerfil.setAttribute("src", imagenProfile)
+  off.setAttribute("class", "fas fa-power-off")
 
   header.appendChild(logo)
   logo.appendChild(imgLogo)
   header.appendChild(showMenuProfile)
   showMenuProfile.appendChild(boxImgProfile)
+  showMenuProfile.appendChild(off)
   boxImgProfile.appendChild(imgPerfil)
 
   imgPerfil.onerror = () => {
@@ -53,7 +56,11 @@ function createMenu() {
 
   boxImgProfile.onclick = () => {
     panelOptionUser.style.right = 0
-    console.log("jevi")
+  }
+
+  off.onclick = () => {
+    delete localStorage.session
+    location.href = "/login"
   }
 
 }

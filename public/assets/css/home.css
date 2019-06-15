@@ -486,3 +486,17 @@ main>.user-active>.search>input:focus {
     opacity: .5;
     display: none;
 }
+
+.fa-power-off{
+    font-size: 1.3em;
+    position: relative;
+    top: 1px;
+    margin-left: 10px;
+    cursor: pointer;
+    opacity: .5;
+}
+
+
+.fa-power-off:hover{
+    opacity: 1;
+}
