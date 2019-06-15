@@ -45,8 +45,8 @@ function routes() {
 		});
 
 		socket.on('dataUser', function (user) {
-			console.log(user)
-			if(!userConnect[user.id]) userConnect[user.id] = {name: user.name, image: user.image}
+	
+			if(!userConnect[user.id]) userConnect[user.id] = {name: user.name, image: user.image, status: user.status}
 			io.emit('online', userConnect);
 			userDisconnect.splice(userDisconnect.indexOf(user.id), 1)
 			socket.on('disconnect', function () {

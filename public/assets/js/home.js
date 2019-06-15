@@ -3,7 +3,13 @@ var cantMsg = 0
 var containerMessage = document.getElementById("message")
 document.body.onload = init
 
-socket.emit('dataUser', { dataUSeremail: dataUSer.email, name: dataUSer.realm, id: dataUSer.id, image: dataUSer.image});
+socket.emit('dataUser', {
+    dataUSeremail: dataUSer.email,
+    name: dataUSer.realm,
+    id: dataUSer.id,
+    image: dataUSer.image,
+    status: dataUSer.status
+});
 
 socket.on('disconn', function (id) {
     document.getElementById(`user${id}`).querySelector(".st .-status-").classList.remove("-status-on-")
@@ -16,32 +22,38 @@ socket.on('status', function (ids) {
 });
 
 socket.on('online', function (user) {
-    console.log(user)
     Object.keys(user).forEach(key => {
         if (!document.getElementById(`user${key}`)) {
-            console.log(user[key].image)
             let parent = document.getElementById("lists");
             let containerUser = document.createElement("div")
+            let status = user[key].status
             let html = ""
             containerUser.classList.add("user")
             containerUser.setAttribute("id", `user${key}`)
             html += '<div class="box-img">'
-            html += '<div class="align-img image-profile-55">'
-            html += `<img src="${api}${user[key].image}" alt="">`
+            html += `<div class="align-img${dataUSer.id == key ? " image-profile-55" : ""}">`
+            html += `<img src="${api}${user[key].image}" alt="" class="image-profile-user">`
             html += '</div>'
             html += '</div>'
             html += '<div class="cont-text">'
             html += `<div class="name"><div class="real-name" id="${dataUSer.id == key ? 'reloadName' : ''}">${user[key].name}</div> <div class="type-you">${dataUSer.id == key ? "(You)" : ""}</div></div>`
-            html += '<div class="status">'
-            html += 'I have money'
+            html += `<div class="status" title="${status}" id="${dataUSer.id == key ? "changeStatus" : ""}">`
+            html += typeof status == "undefined" ? "" : (status.substr(0, 15) + ((status.length > 14) ? "..." : ""))
             html += '</div>'
             html += '</div>'
             html += '<div class="st">'
             html += `<div class="-status- -status-on-"></div>`
             html += '</div>'
-
             containerUser.innerHTML = html
             parent.appendChild(containerUser)
+
+            let imgP = document.querySelectorAll(".image-profile-user")
+            imgP.forEach(img => {
+                img.onerror = () => {
+                    img.src = "../assets/img/not-image.png"
+                }
+            })
+            // console.log(document.getElementById("textE"))
         } else document.getElementById(`user${key}`).querySelector(".st .-status-").classList.add("-status-on-")
     })
 
@@ -52,30 +64,17 @@ socket.on('msg', function (msg) {
     let parent = document.getElementById("message")
     let div = document.createElement("div")
     let html = ""
-    let exists = false
- 
+
     div.classList.add("message")
     html += '<div class="image-message">'
-    html += '<img src="http://fundaciontem.org/wp-content/uploads/2016/04/sinay-segun-veronica-1.jpg" alt="">'
+    html += `<img src="${api}containers/${msg.id}_users/download/perfil.png" alt="" class="items-users-change-892">`
     html += '</div>'
     html += '<div class="msg">'
     html += '<div class="box-arrow">'
     html += `<i class="${msg.id == dataUSer.id ? "fas fa-caret-right" : "fas fa-caret-left"}"></i>`
     html += '</div>'
     html += `<div class="message-user">${msg.id != dataUSer.id ? msg.name : "You"}</div>`
-
-    for (let i = 0; i < emojis.length; i++) {
-        if (msg.msg.indexOf(emojis[i].codes) !== -1) {
-            exists = true
-            html += `<div class="show-message">${msg.msg.indexOf(emojis[i].codes) !== -1 ? msg.msg.replace(new RegExp(emojis[i].codes, 'g'), emojis[i].char) : msg.msg}</div>`
-        }
-        if ((i + 1) == emojis.length && !exists) {
-            html += `<div class="show-message">${msg.msg}</div>`
-        }
-    }
-    exists = false
-
-    if (emojis.length < 1) html += `<div class="show-message">${msg.msg}</div>`
+    html += `<div class="show-message">${msg.msg}</div>`
     html += '</div>'
 
     if (msg.id === dataUSer.id) div.classList.add("you")
@@ -83,21 +82,31 @@ socket.on('msg', function (msg) {
     div.innerHTML = html
     parent.appendChild(div)
 
-    setTimeout(()=>{
+    let imgProfile = document.querySelectorAll(".items-users-change-892")
+
+    imgProfile.forEach(img => {
+        img.onerror = () => {
+            img.src = "../assets/img/not-image.png"
+        }
+    })
+
+    setTimeout(() => {
         let position = containerMessage.scrollTop + containerMessage.offsetHeight
-        if(position < (containerMessage.scrollHeight - 200)){
-            if(msg.id != dataUSer.id){
+        if (position < (containerMessage.scrollHeight - 200)) {
+            if (msg.id != dataUSer.id) {
                 document.getElementById("showCantMsg").style.display = "flex"
                 cantMsg += 1
                 contCantMsg.innerText = cantMsg
             }
-        }else{
+        } else {
             containerMessage.scrollTop = containerMessage.scrollHeight
         }
-    },200)
+    }, 200)
 });
 
-socket.emit('getMessageId', { id: dataUSer.id });
+socket.emit('getMessageId', {
+    id: dataUSer.id
+});
 
 socket.on('getMessage', function (msgs) {
     if (+msgs.id.id != dataUSer.id) return
@@ -106,39 +115,27 @@ socket.on('getMessage', function (msgs) {
         let parent = document.getElementById("message")
         let div = document.createElement("div")
         let html = ""
-        let exists = false
 
         div.classList.add("message")
 
         html += '<div class="image-message">'
-        html += '<img src="http://fundaciontem.org/wp-content/uploads/2016/04/sinay-segun-veronica-1.jpg" alt="">'
+        html += `<img src="${api}containers/${messages[i].id}_users/download/perfil.png" class="items-users-change">`
         html += '</div>'
         html += '<div class="msg">'
         html += '<div class="box-arrow">'
         html += `<i class="${messages[i].id == dataUSer.id ? "fas fa-caret-right" : "fas fa-caret-left"}"></i>`
         html += '</div>'
         html += `<div class="message-user">${messages[i].id != dataUSer.id ? messages[i].name : "You"}</div>`
+        html += `<div class="show-message">${messages[i].msg}</div>`
 
-
-
-        for (let e = 0; e < emojis.length; e++) {
-            if (messages[i].msg.indexOf(emojis[e].codes) !== -1) {
-                exists = true
-                html += `<div class="show-message">${messages[i].msg.indexOf(emojis[e].codes) !== -1 ? messages[i].msg.replace(new RegExp(emojis[e].codes, 'g'), emojis[e].char) : messages[i].msg}</div>`
-            }
-            if ((e + 1) == emojis.length && !exists) html += `<div class="show-message">${messages[i].msg}</div>`
-        }
-
-        if((i+1) == messages.length){
+        if ((i + 1) == messages.length) {
             containerMessage.scrollTop = containerMessage.scrollHeight
-            setTimeout(()=>{
+            setTimeout(() => {
                 containerMessage.style.scrollBehavior = "smooth"
             })
         }
 
         exists = false
-
-        if (emojis.length < 1) html += `<div class="show-message">${messages[i].msg}</div>`
 
         html += '</div>'
 
@@ -146,6 +143,15 @@ socket.on('getMessage', function (msgs) {
         else div.classList.add("other")
         div.innerHTML = html
         parent.appendChild(div)
+
+
+        let imgProfile = document.querySelectorAll(".items-users-change")
+
+        imgProfile.forEach(img => {
+            img.onerror = () => {
+                img.src = "../assets/img/not-image.png"
+            }
+        })
 
     }
 });
@@ -160,7 +166,11 @@ txtMessage.addEventListener("keypress", (e) => {
 
             return
         }
-        socket.emit('message', { id: dataUSer.id, name: dataUSer.realm, msg: txtMessage.innerText });
+        socket.emit('message', {
+            id: dataUSer.id,
+            name: dataUSer.realm,
+            msg: txtMessage.innerText
+        });
         setTimeout(() => {
             txtMessage.innerHTML = ""
             containerMessage.scrollTop = containerMessage.scrollHeight
@@ -188,7 +198,7 @@ function init() {
 
     containerMessage.addEventListener("scroll", () => {
         let position = containerMessage.scrollTop + containerMessage.offsetHeight
-        if(position > containerMessage.scrollHeight - 100){
+        if (position > containerMessage.scrollHeight - 100) {
             let contCantMsg = document.getElementById("cantMsg")
             document.getElementById("showCantMsg").style.display = "none"
             cantMsg = 0
@@ -196,7 +206,7 @@ function init() {
         }
     })
 
- 
+
 
     let panelOptionUser = document.getElementById("panelOptionUser")
     let dataUSer = JSON.parse(localStorage.session)
@@ -207,8 +217,13 @@ function init() {
     let statusOption = document.getElementById("statusOption")
     let cancelOption = document.getElementById("cancelOption")
     let saveOption = document.getElementById("saveOption")
+    let cantOption = document.getElementById("cantOption")
     let base64;
     image.src = imagenProfile
+    image.onerror = () => {
+        image.src = "../assets/img/not-image.png"
+    }
+
 
     fileInputOption.addEventListener("change", () => {
         let file = fileInputOption.files[0]
@@ -221,25 +236,26 @@ function init() {
         reader.onload = function () {
             base64 = reader.result
             image.src = reader.result
-            image.onload = function(){
+            image.onload = function () {
                 loadOption.style.display = "none"
             }
         };
     })
 
     fullnameOption.value = dataUSer.realm
-    statusOption.value = dataUSer.state ? dataUSer.state : ""
-    
+    statusOption.value = dataUSer.status ? dataUSer.status : ""
+    cantOption.innerText = 195 - statusOption.value.length
+
     cancelOption.onclick = () => {
         panelOptionUser.style.right = "-380px"
     }
 
     saveOption.onclick = () => {
-        
+
         let data2 = {
             type: "PATCH",
             url: `${api}Users/${dataUSer.id}`,
-            data:{
+            data: {
                 realm: fullnameOption.value,
                 status: statusOption.value
             }
@@ -247,15 +263,17 @@ function init() {
 
         provider(data2).then(res => {
             document.getElementById("reloadName").innerText = dataUSer.realm = fullnameOption.value
-            dataUSer.status = statusOption.value
-
+            let status = dataUSer.status = statusOption.value
+            dataUSer.image = `containers/${dataUSer.id}_users/download/perfil.png`
             localStorage.session = JSON.stringify(dataUSer)
+            document.getElementById("changeStatus").innerText = typeof status == "undefined" ? "" : (status.substr(0, 15) + ((status.length > 14) ? "..." : ""))
+
         }).catch(err => {
             console.log("error")
         })
 
-        if(fileInputOption.files.length < 1) return
-        
+        if (fileInputOption.files.length < 1) return
+
         let data = {
             type: "GET",
             url: `${api}Containers/${dataUSer.id}_users`,
@@ -276,11 +294,18 @@ function init() {
                 console.log(err)
             })
         })
-
-        
     }
 
-    function ejecutSendImg(){
+    statusOption.addEventListener("keydown", (e) => {
+        if (e.keyCode == 8) return
+        if (statusOption.value.length >= 195) e.preventDefault()
+    })
+
+    statusOption.addEventListener("keyup", (e) => {
+        if (statusOption.value.length <= 195) cantOption.innerText = 195 - statusOption.value.length
+    })
+
+    function ejecutSendImg() {
         postFormData(`${dataUSer.id}_users`, base64, "perfil", res => {
             let imagesProfile = document.querySelectorAll(".image-profile-55>img")
             imagesProfile.forEach(image => {
@@ -289,27 +314,5 @@ function init() {
             })
         })
     }
- 
-
-    
-    // 
-
-
-    // txtMessage.addEventListener("keyup", (e) =>{
-    //     if(e.keyCode == 32){
-    //         e.preventDefault()
-    //         let msg = txtMessage.innerHTML
-
-    //         for (let i = 0; i < emojis.length; i++) {
-                
-    //             if(msg.indexOf(emojis[i].codes) !== -1){
-                    
-                  
-    //                 break
-    //             }
-    //             // txtMessage.innerHTML = msg.replace(new RegExp(emojis[i].codes, 'g'), emojis[i].char)
-    //         }
-    //     }
-    // })
 
 }

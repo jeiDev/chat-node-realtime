@@ -361,8 +361,7 @@ main>.user-active>.search>input:focus {
 /* PANEL OPTION */
 .panel-option-user{
     position: absolute;
-    /* right: -380px; */
-    right: 0;
+    right: -380px;
     display: flex;
     min-width: 380px;
     max-width: 380px;

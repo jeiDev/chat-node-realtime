@@ -1,10 +1,8 @@
 var api = "http://localhost:3000/api/"
 var token = localStorage.session ? JSON.parse(localStorage.session).token : null
 var dataUSer = JSON.parse(localStorage.session)
-var imagenProfile;
-verificExistImgProfile(dataUSer.id, callback => {
-  imagenProfile = callback
-})
+var imagenProfile = `${api}containers/${dataUSer.id}_users/download/perfil.png`;
+
 /*
  * @param {Object} send data in type Object example {type: "POST" (Required), url: "http://example.com"(Required), data: "Data to send" (Optional), token: "Ad2s5z5d6asdDSd5kdas6das5" (Optional)}
  */
@@ -34,7 +32,7 @@ function createMenu() {
   let showMenuProfile = document.createElement("div")
   let boxImgProfile = document.createElement("div")
   let imgPerfil = document.createElement("img")
-  let dataUser = JSON.parse(localStorage.session)
+  let panelOptionUser = document.getElementById("panelOptionUser")
 
   logo.setAttribute("class", "logo")
   logo.setAttribute("href", "/")
@@ -48,6 +46,15 @@ function createMenu() {
   header.appendChild(showMenuProfile)
   showMenuProfile.appendChild(boxImgProfile)
   boxImgProfile.appendChild(imgPerfil)
+
+  imgPerfil.onerror = () => {
+    imgPerfil.src = "../assets/img/not-image.png"
+  }
+
+  boxImgProfile.onclick = () => {
+    panelOptionUser.style.right = 0
+    console.log("jevi")
+  }
 
 }
 
@@ -107,16 +114,4 @@ function postFormData(container, base64, name, cb) {
   xhr.open("POST", `${api}/containers/${container}/upload?acces_token=${token}`)
   xhr.send(formData)
 
-}
-
-function verificExistImgProfile(id, callback) {
-  let data = {
-    type: "GET",
-    url: `${api}Containers/${id}_users/files/perfil.png`,
-  }
-  provider(data).then(res => {
-    callback(`${api}containers/${id}_users/download/perfil.png`)
-  }).catch(err => {
-    callback("../assets/img/not-image.png")
-  })
 }
