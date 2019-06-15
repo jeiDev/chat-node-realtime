@@ -22,12 +22,12 @@ Then go to the folder public/assets/js/main.js open that file and look for the v
 
 ## Images
 
-![alt text] (https://i.pinimg.com/originals/60/36/c7/6036c784bd1d249a16cf04d24b40500b.jpg)
+![alt text](https://i.pinimg.com/originals/60/36/c7/6036c784bd1d249a16cf04d24b40500b.jpg)
 
-![alt text] (https://i.pinimg.com/originals/27/df/3a/27df3a5c32442e41d1d7c8eac5d68f89.jpg)
+![alt text](https://i.pinimg.com/originals/27/df/3a/27df3a5c32442e41d1d7c8eac5d68f89.jpg)
 
-![alt text] (https://i.pinimg.com/originals/12/95/e7/1295e7d6da7ecef6f3e9b82a2ebcc09a.jpg)
+![alt text](https://i.pinimg.com/originals/12/95/e7/1295e7d6da7ecef6f3e9b82a2ebcc09a.jpg)
 
-![alt text] (https://i.pinimg.com/originals/f6/57/ef/f657efc82d5f9b74fd0e66964eb5a432.jpg)
+![alt text](https://i.pinimg.com/originals/f6/57/ef/f657efc82d5f9b74fd0e66964eb5a432.jpg)
 
-![alt text] (https://i.pinimg.com/originals/59/d4/b1/59d4b18a8bb64286f0761d08bca51a5d.jpg)
+![alt text](https://i.pinimg.com/originals/59/d4/b1/59d4b18a8bb64286f0761d08bca51a5d.jpg)
